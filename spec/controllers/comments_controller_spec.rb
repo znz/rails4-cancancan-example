@@ -55,6 +55,14 @@ describe CommentsController do
       get :new, {}, valid_session
       assigns(:comment).should be_a_new(Comment)
     end
+
+    describe "with post_id param" do
+      it "assigns a new comment as @comment" do
+        post = FactoryGirl.create(:post)
+        get :new, {:comment => { :post_id => post.id } }, valid_session
+        assigns(:comment).should be_a_new(Comment)
+      end
+    end
   end
 
   describe "GET edit" do
